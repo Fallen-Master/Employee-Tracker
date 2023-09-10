@@ -1,4 +1,5 @@
-const db = require('../config/connection');
+const { mysql: getDbConnection } = require('../config/connection');
+const db = getDbConnection();
 const inquirer = require('inquirer')
 
 exports.fetchRoles = () => {
