@@ -3,8 +3,8 @@ const { mysql: getConnection } = require('./config/connection');
 const connection = getConnection();
 const inquirer = require('inquirer');
 const {viewAllDepartments, addADepartment} = require('./controllers/departmentControls');
-const employeeControls = require('./controllers/employeeControls');
-const roleControls = require('./controllers/roleControls');
+const {viewAllEmployees, addAnEmployee, updateAnEmployeeRole} = require('./controllers/employeeControls');
+const {addARole, viewAllRoles} = require('./controllers/roleControls');
 
 const MAIN_MENU_CHOICES = [
     'View all departments',
@@ -43,27 +43,27 @@ async function mainMenu() {
                 break;
 
             case 'View all Roles':
-                viewAllRoles();
+                await viewAllRoles();
                 break;
 
             case 'View all employees':
-                viewAllEmployees();
+                await viewAllEmployees();
                 break;
 
             case 'Add A department':
-                addADepartment();
+                await addADepartment();
                 break;
 
             case 'Add a role':
-                addARole()
+                await addARole()
                 break;
 
             case 'Add an employee':
-                addAnEmployee();
+                await addAnEmployee();
                 break;
 
             case 'Update an employee role':
-                updateAnEmployeeRole()
+                await updateAnEmployeeRole()
                 break;
         }
         mainMenu()
