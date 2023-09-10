@@ -1,9 +1,25 @@
 require('dotenv').config();
-const mysql2 = require('mysql2')
-const inquirer = require('inquirer')
-const departmentControls = require('./controllers/departmentControls')
-const employeeControls = require('./controllers/employeeControls')
-const roleControls = require('./controllers/roleControls')
+const { mysql: getConnection } = require('./config/connection');
+const connection = getConnection();
+const inquirer = require('inquirer');
+const {viewAllDepartments, addADepartment} = require('./controllers/departmentControls');
+const employeeControls = require('./controllers/employeeControls');
+const roleControls = require('./controllers/roleControls');
+
+const MAIN_MENU_CHOICES = [
+    'View all departments',
+    'View all Roles',
+    'View all employees',
+    'Add A department',
+    'Add a role',
+    'Add an employee',
+    'Update an employee role',
+    'Exit'
+];
+connection.connect(err => {
+    if (err) throw err;
+    mainMenu();
+  });
 
 
 async function mainMenu() {
@@ -13,16 +29,7 @@ async function mainMenu() {
             name: 'theAction',
             message: 'What would you like to view?',
 
-            choices: [
-                'View all departments',
-                'View all Roles',
-                'View all employees',
-                'Add A department',
-                'Add a role',
-                'Add an employee',
-                'Update an employee role',
-                'Exit'
-            ]
+            choices: MAIN_MENU_CHOICES
         });
 
         if (answers.theAction === 'Exit') {
@@ -32,7 +39,7 @@ async function mainMenu() {
 
         switch (answers.theAction) {
             case 'View all departments':
-                viewAllDepartments();
+                await viewAllDepartments();
                 break;
 
             case 'View all Roles':

@@ -4,7 +4,7 @@ USE employees;
     ('Engineering'),
     ('Finance'),
     ('Legal'),
-    ('Sales')
+    ('Sales');
 
 INSERT INTO role (title, salary, department_id) VALUES
 ('Software Engineer', 90000, 2),  
@@ -13,9 +13,12 @@ INSERT INTO role (title, salary, department_id) VALUES
 ('Legal Advisor', 91000, 4),      
 ('Sales Manager', 70000, 5);      
 
+INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES
+('John', 'Doe', 1, NULL);
+
+COMMIT;
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES
-('John', 'Doe', 1, NULL),
 ('Mike', 'Chan', 2, 1),
 ('Ashley', 'Rodrguez', 2, 1),
 ('Kevin', 'Tupik', 3, 1),
