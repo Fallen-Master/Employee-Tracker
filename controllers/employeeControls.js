@@ -73,7 +73,6 @@ function addAnEmployee() {
                     return;
                 }
                 console.log("A new Employee has been added");
-                console.table(result);
                 resolve();
             });
         } catch (err) {
