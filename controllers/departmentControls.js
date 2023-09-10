@@ -41,7 +41,6 @@ function addADepartment() {
                     return;
                 }
                 console.log("A new department has been created");
-                console.table(result);
                 resolve();
             });
         } catch (err) {
