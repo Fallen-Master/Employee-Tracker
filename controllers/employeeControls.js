@@ -2,7 +2,7 @@ const { mysql: getDbConnection } = require('../config/connection');
 const db = getDbConnection();
 const inquirer = require('inquirer')
 
-exports.viewAllEmployees = () => {
+function viewAllEmployees() {
     return new Promise((resolve, reject) => {
         const sql = `
         SELECT
@@ -39,7 +39,7 @@ async function fetchRoles() {
     })
 }
 
-exports.addAnEmployee = () => {
+function addAnEmployee() {
     return new Promise(async (resolve, reject) => {
         try {
             const currentRoles = await fetchRoles();
@@ -98,7 +98,7 @@ async function fetchEmployees() {
     })
 }
 
-exports.updateAnEmployeeRole = () => {
+function updateAnEmployeeRole() {
     return new Promise(async (resolve, reject) => {
         try {
             const currentEmployees = await fetchEmployees();
@@ -142,3 +142,5 @@ exports.updateAnEmployeeRole = () => {
         }
     });
 };
+
+module.exports = {viewAllEmployees, addAnEmployee, updateAnEmployeeRole}

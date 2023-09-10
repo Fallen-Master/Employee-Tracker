@@ -2,7 +2,7 @@ const { mysql: getDbConnection } = require('../config/connection');
 const db = getDbConnection();
 const inquirer = require('inquirer')
 
-exports.fetchRoles = () => {
+function fetchRoles() {
   return new Promise((resolve, reject) => {
     const sql = `SELECT id, 
     title FROM role`;
@@ -14,7 +14,7 @@ exports.fetchRoles = () => {
   })
 };
 
-exports.viewAllRoles = () => {
+function viewAllRoles() {
   return new Promise((resolve, reject) => {
     const sql = `
 SELECT
@@ -37,7 +37,7 @@ JOIN department ON role.department_id = department.id;
   })
 };
 
-exports.addARole = () => {
+function addARole() {
   return new Promise(async (resolve, reject) => {
     try {
       const newRole = [
@@ -66,3 +66,5 @@ exports.addARole = () => {
     }
   });
 };
+
+module.exports ={addARole, viewAllRoles}
