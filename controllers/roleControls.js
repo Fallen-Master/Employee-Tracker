@@ -14,6 +14,16 @@ function fetchRoles() {
   })
 };
 
+function fetchDepartments() {
+  return new Promise((resolve, reject) => {
+    const sql = `SELECT id, name FROM department`;
+    db.query(sql, (err, departments) => {
+      if (err) return reject(err);
+      resolve(departments);
+    });
+  });
+}
+
 function viewAllRoles() {
   return new Promise((resolve, reject) => {
     const sql = `
@@ -40,6 +50,11 @@ JOIN department ON role.department_id = department.id;
 function addARole() {
   return new Promise(async (resolve, reject) => {
     try {
+      const departments = await fetchDepartments();
+      const departmentChoices = departments.map(department => ({
+        name: department.name,
+        value: department.id
+      }));
       const newRole = [
         {
           name: 'newRoleName',
@@ -51,18 +66,25 @@ function addARole() {
           type: 'input',
           message: 'Please provide the salary for this new role',
         },
+        {
+          name: 'department_id',
+          type: 'list',
+          message: 'Which department does this role belong to?',
+          choices: departmentChoices,
+        },
       ];
       const answers = await inquirer.prompt(newRole);
-      const sql = 'INSERT INTO role (title, salary) VALUES (?, ?)'; 
+      const sql = 'INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)'; 
 
-      db.query(sql, [answers.newRoleName, answers.salary], (err, result) => {
+      db.query(sql, [answers.newRoleName, answers.salary, answers.department_id], (err, result) => {
         if (err) {
           return reject(err);
         }
+        console.log('Role has been created')
         resolve(result); 
       });
-    } catch (error) {
-      reject(error);
+    } catch (err){
+      console.log(`An error occured:${err.message}`)
     }
   });
 };
