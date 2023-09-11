@@ -81,7 +81,7 @@ function addARole() {
           return reject(err);
         }
         console.log('Role has been created')
-        resolve(result); 
+        resolve(); 
       });
     } catch (err){
       console.log(`An error occured:${err.message}`)
