@@ -19,7 +19,7 @@ npm i
 ```
   
 ## Usage
-The application is not deployed since it's a command-line application. A walkthrough video demonstrates its functionality.[WalkThrough Video Link here]()
+The application is not deployed since it's a command-line application. A walkthrough video demonstrates its functionality.[WalkThrough Video Link here](https://drive.google.com/file/d/1R8J8ZlNm0LE8C2bk0xIwVCjXjeSreW4b/view?usp=sharing)
   
  ## License
           This project is licensed inder the MIT.
