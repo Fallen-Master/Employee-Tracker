@@ -1,6 +1,7 @@
 # Employee Tracker App
 
-![Static Badge](https://img.shields.io/badge/license-MIT-blue)
+![Static Badge](https://img.shields.io/badge/license-MIT-blue) 
+
 ## Table of Contents
 1. [Description](#description)
 2. [Installation](#installation)
@@ -31,3 +32,5 @@ N/A
 ## Questions 
 If you have any questions about the repo, open an issue or contact me directly at [rgomez2014@gmail.com](mailto:rgomez2014@gmail.com). 
 You can find more of my work at [Fallen-Master](https://github.com/Fallen-Master)
+
+[REPOSITORY](https://github.com/Fallen-Master/Employee-Tracker)
