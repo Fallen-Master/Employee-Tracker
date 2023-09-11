@@ -38,12 +38,29 @@ async function fetchRoles() {
         })
     })
 }
+async function fetchManagers() {
+    return new Promise((resolve, reject) => {
+        const sql = `
+        SELECT DISTINCT manager.id, CONCAT(manager.first_name, ' ', manager.last_name) AS Manager
+        FROM employee
+        JOIN employee AS manager ON employee.manager_id = manager.id;
+        `;
+        db.query(sql, (err, results) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(results.map(manager => ({ name: manager.Manager, value: manager.id })));
+        });
+    });
+}
+
 
 function addAnEmployee() {
     return new Promise(async (resolve, reject) => {
         try {
             const currentRoles = await fetchRoles();
-
+            const currentManagers = await fetchManagers();
             const newEmployeeQuestions = [
                 {
                     name: 'firstName',
@@ -60,14 +77,20 @@ function addAnEmployee() {
                     type: 'list',
                     message: 'Please choose from the current list of roles',
                     choices: currentRoles
+                },
+                {
+                    name:'manager',
+                    type: 'list',
+                    message: 'Please choose from the list of managers',
+                    choices: currentManagers
                 }
             ];
 
             const answers = await inquirer.prompt(newEmployeeQuestions)
 
-            const sql = `INSERT INTO employee (first_name, last_name, role_id) VALUES (?, ?, ?)`;
+            const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)`;
 
-            db.query(sql, [answers.firstName, answers.lastName, answers.role], (err, result) => {
+            db.query(sql, [answers.firstName, answers.lastName, answers.role, answers.manager], (err, result) => {
                 if (err) {
                     console.log(`An error occurred:${err.message}`)
                     return;
@@ -132,7 +155,6 @@ function updateAnEmployeeRole() {
                     return reject(err);
                 }
                 console.log("The employee's role has been updated.");
-                console.table(result);
                 resolve();
             });
         }catch (err) {
